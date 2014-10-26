@@ -12,14 +12,16 @@ export class AbstractStore {
         return id;
     }
 
-    updateByKey(key, options) {
-        if (!options.data[this.model.keyPath]) {
-            throw new Error();
+    updateByKey(options) {
+        var keyPath = this.manager.VO.keyPath;
+        if (!options.fullData[keyPath]) {
+            throw new Error('Missing ' + keyPath + ' in fullData');
         }
+        options.partialUpdate = options.data !== options.fullData;
         options.criteria = {};
-        options.criteria[this.model.keyPath] = options.data[this.model.keyPath];
+        options.criteria[keyPath] = options.fullData[keyPath];
         options.data = Object.assign({}, options.data);
-        delete options.data[this.model.keyPath];
+        delete options.data[keyPath];
         this.update(options);
     }
 }
