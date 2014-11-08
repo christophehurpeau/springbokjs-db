@@ -2,7 +2,7 @@ var QFind = require('./QFind').QFind;
 
 export class QFindOne extends QFind {
     fetch() {
-        console.log('Fetching on ' + this.VO.modelName + ': query=', this._query, ', options=', this.options);
+        //console.log('Fetching on ' + this.VO.modelName + ': query=', this._query, ', options=', this.options);
 
         return this.manager.executeHooks(['beforeFind', 'beforeFindOne'], this.options)
             .then(() => {
