@@ -4,7 +4,7 @@ export class AbstractCursor {
     }
 
     vo() {
-        return this.result().then(this._store.toModel.bind(this._store));
+        return this.result().then(this._store.toVO.bind(this._store));
     }
 
     remove() {

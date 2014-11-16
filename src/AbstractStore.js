@@ -12,8 +12,12 @@ export class AbstractStore {
         return id;
     }
 
+    get keyPath() {
+        return this.manager.VO.keyPath;
+    }
+
     updateByKey(options) {
-        var keyPath = this.manager.VO.keyPath;
+        var keyPath = this.keyPath;
         if (!options.fullData[keyPath]) {
             throw new Error('Missing ' + keyPath + ' in fullData');
         }
