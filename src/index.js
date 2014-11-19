@@ -1,11 +1,11 @@
 var databases = new Map();
 
 class Db {
-    constructor(dbName, options) {
+    constructor(dbName, Store, options) {
         this.dbName = dbName;
         options.dbName = dbName;
         this.options = options;
-        this.Store = require('springbokjs-db-' + (options.type || 'mongo'));
+        this.Store = Store;
         this.models = [];
     }
 
@@ -26,13 +26,17 @@ class Db {
 
 
 module.exports = Object.freeze({
-    initialize(config) {
+    initialize(config, getStore) {
         if (!config) {
             return;
         }
+        if (!getStore) {
+            getStore = (type) => require('springbokjs-db-' + (type || 'mongo'));
+        }
         return Promise.all(Object.keys(config).map((dbKey) => {
             var dbConfig = config[dbKey];
-            var db = new Db(dbConfig.dbName, dbConfig);
+            var Store = getStore(dbConfig.type);
+            var db = new Db(dbConfig.dbName, Store, dbConfig);
             databases.set(dbKey, db);
             return db.initialize();
         }));
