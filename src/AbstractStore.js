@@ -13,7 +13,7 @@ export class AbstractStore {
     }
 
     get keyPath() {
-        return this.manager.VO.keyPath;
+        return this.manager.VO.keyPath || 'id';
     }
 
     updateByKey(options) {
