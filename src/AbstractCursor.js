@@ -12,6 +12,8 @@ export class AbstractCursor {
     }
 
     forEach(callback) {
-        return this.forEachKeys(this.vo.bind(this, callback));
+        return this.forEachKeys((key) => {
+            return this.vo().then(callback);
+        });
     }
 }
