@@ -15,6 +15,10 @@ class Db {
         });
     }
 
+    close() {
+        return this.Store.close(this);
+    }
+
     add(vo) {
         this.models.push(vo);
     }
@@ -40,6 +44,9 @@ module.exports = Object.freeze({
             databases.set(dbKey, db);
             return db.initialize();
         }));
+    },
+    close() {
+        databases.forEach((db) => db.close());
     },
     get(dbKey) {
         return databases.get(dbKey);

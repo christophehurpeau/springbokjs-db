@@ -24,6 +24,11 @@ export class QFind {
         return this;
     }
 
+    sort(value) {
+        this.options.sort = value;
+        return this;
+    }
+
     cursor() {
         return this.manager.executeHooks(['beforeFind', 'beforeCursor'], this.options)
             .then(() => {
