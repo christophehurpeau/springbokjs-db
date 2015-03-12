@@ -1,4 +1,4 @@
-var databases = new Map();
+var databases = global.springbokDatabases = global.springbokDatabases || new Map();
 
 class Db {
     constructor(dbName, Store, options) {
@@ -27,7 +27,6 @@ class Db {
         return new this.Store(this, manager);
     }
 }
-
 
 module.exports = Object.freeze({
     initialize(config, getStore) {
