@@ -1,4 +1,4 @@
-var databases = global.springbokDatabases = global.springbokDatabases || new Map();
+var databases = new Map();
 
 class Db {
     constructor(dbName, Store, options) {

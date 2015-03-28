@@ -26,7 +26,12 @@ export class AbstractStore {
         options.criteria[keyPath] = options.key;
         options.data = Object.assign({}, options.data);
         delete options.data[keyPath];
-        this.update(options);
+        return this.update(options).then((count) => {
+            if (count !== undefined && count !== 1) {
+                throw new Error('Failed to updateByKey ' +
+                                this.manager.VO.name + ': ' + options.key + ' (' + count + ')');
+            }
+        });
     }
 
     removeByKey(options) {
@@ -36,6 +41,11 @@ export class AbstractStore {
         }
         options.criteria = {};
         options.criteria[keyPath] = options.key;
-        this.remove(options);
+        return this.remove(options).then((count) => {
+            if (count !== undefined && count !== 1) {
+                throw new Error('Failed to removeByKey ' +
+                                this.manager.VO.name + ': ' + options.key + ' (' + count + ')');
+            }
+        });
     }
 }
