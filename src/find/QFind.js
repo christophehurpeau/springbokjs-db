@@ -29,6 +29,11 @@ export class QFind {
         return this;
     }
 
+    limit(value) {
+        this.options.limit = value;
+        return this;
+    }
+
     cursor() {
         return this.manager.executeHooks(['beforeFind', 'beforeCursor'], this.options)
             .then(() => {
