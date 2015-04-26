@@ -34,6 +34,11 @@ export class QFind {
         return this;
     }
 
+    notimeout() {
+        this.options.timeout = false;
+        return this;
+    }
+
     cursor() {
         return this.manager.executeHooks(['beforeFind', 'beforeCursor'], this.options)
             .then(() => {
